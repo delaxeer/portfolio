@@ -1,0 +1,129 @@
+body {
+    scroll-behavior: smooth;
+    background-color: #ffffff;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.navbar {
+    transition: background-color 0.3s ease;
+    border-radius: 50px;
+    margin: 10px;
+}
+
+.navbar.scrolled {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.navbar ul li a {
+    border-radius: 20px;
+    padding: 8px 16px;
+}
+
+.navbar ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.work-card {
+    background-color: #000000;
+    border-radius: 20px;
+    border: 1px solid #333;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.work-card:hover {
+    transform: scale(1.05);
+}
+
+.video-container {
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.btn {
+    border-radius: 50px;
+    padding: 10px 20px;
+}
+
+/* Анимация шариков */
+.dot {
+    position: absolute;
+    background-color: #000000;
+    border-radius: 50%;
+    opacity: 0.7;
+    animation: move 20s infinite linear;
+}
+
+@keyframes move {
+    0% { transform: translate(0, 0); }
+    50% { transform: translate(100vw, 100vh); }
+    100% { transform: translate(0, 0); }
+}
+
+.dot:nth-child(1) { width: 20px; height: 20px; top: 10%; left: 5%; animation-duration: 15s; }
+.dot:nth-child(2) { width: 30px; height: 30px; top: 20%; left: 15%; animation-duration: 25s; }
+.dot:nth-child(3) { width: 15px; height: 15px; top: 30%; left: 25%; animation-duration: 18s; }
+.dot:nth-child(4) { width: 25px; height: 25px; top: 40%; left: 35%; animation-duration: 22s; }
+.dot:nth-child(5) { width: 10px; height: 10px; top: 50%; left: 45%; animation-duration: 30s; }
+.dot:nth-child(6) { width: 20px; height: 20px; top: 60%; left: 55%; animation-duration: 17s; }
+.dot:nth-child(7) { width: 30px; height: 30px; top: 70%; left: 65%; animation-duration: 20s; }
+.dot:nth-child(8) { width: 15px; height: 15px; top: 80%; left: 75%; animation-duration: 28s; }
+.dot:nth-child(9) { width: 25px; height: 25px; top: 90%; left: 85%; animation-duration: 23s; }
+.dot:nth-child(10) { width: 20px; height: 20px; top: 95%; left: 95%; animation-duration: 19s; }
+
+/* Выпадающие секции */
+.video-dropdown {
+    max-height: 0;
+    overflow: hidden;
+    background-color: #000000;
+    border-radius: 20px;
+    padding: 0 10px;
+    margin-top: 10px;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.video-dropdown.active {
+    max-height: 1000px; /* Большое значение, чтобы вместить весь контент */
+    padding: 10px;
+}
+
+/* Контейнер для карточек */
+.work-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.work-grid > div {
+    width: 100%;
+}
+
+/* Стили для ступенчатого расположения */
+.work-card:nth-child(1) {
+    margin-left: 8rem;
+    width: 80%;
+}
+
+.work-card:nth-child(2) {
+    margin-left: 8rem;
+    width: 80%;
+}
+
+.work-card:nth-child(3) {
+    margin-left: 8rem;
+    width: 80%;
+}
+
+@media (max-width: 640px) {
+    .work-card:nth-child(2) {
+        margin-left: 1rem;
+    }
+    .work-card:nth-child(3) {
+        margin-left: 2rem;
+    }
+}
