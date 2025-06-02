@@ -221,9 +221,18 @@
             #works .work-card h3 {
                 font-size: 1rem;
             }
+            .video-container {
+                border-radius: 20px;
+                overflow: hidden;
+                min-height: 220px; /* Добавьте эту строку */
+                display: flex;     /* Центрирование видео */
+                align-items: center;
+                justify-content: center;
+            }
             .video-container video {
                 width: 100%;
-                height: auto;
+                height: 100%;
+                object-fit: cover; /* Видео будет заполнять контейнер */
             }
             .btn {
                 padding: 6px 12px;
