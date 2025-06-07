@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 
+<head>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-NV4BE19RWC"></script>
     <script>
     window.dataLayer = window.dataLayer || [];
@@ -12,44 +13,136 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Портфолио видеомонтажера</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         * {
             box-sizing: border-box;
         }
         body {
             scroll-behavior: smooth;
-            background-color: #ffffff;
+            background: linear-gradient(180deg, #1A2A44, #2D4060); /* Темно-синий градиент */
             position: relative;
             overflow-x: hidden;
             margin: 0;
             padding: 0;
+            color: #F5F5FF; /* Светлый текст для контраста */
+            font-family: 'Arial', sans-serif;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 42, 68, 0.7); /* Полупрозрачный наложение */
+            z-index: -2;
+        }
+        .embed-container {
+            position: relative;
+            max-width: 1200px;
+            width: 90%;
+            margin: 20px auto;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            overflow: hidden;
+            background: linear-gradient(45deg, #2D4060, #BED1F2);
+            animation: gradientShift 10s infinite alternate;
+            transition: transform 0.3s ease;
+        }
+        .embed-container:hover {
+            transform: scale(1.01);
+        }
+        .embed-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.4;
+            transition: opacity 0.3s;
+            border-radius: inherit;
+        }
+        .embed-container > *:not(.embed-bg) {
+            position: relative;
+            z-index: 1;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
         }
         .navbar {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            background-color: #2D4060;
+            padding: 10px 20px;
             transition: background-color 0.3s ease;
             border-radius: 50px;
-            margin: 10px;
-            z-index: 10;
+            margin: 10px auto;
+            width: 90%;
+            max-width: 1200px;
         }
         .navbar.scrolled {
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: #1A2A44;
+        }
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
         }
         .navbar ul li a {
             border-radius: 20px;
             padding: 8px 16px;
+            color: #F5F5FF;
+            text-decoration: none;
+            transition: all 0.3s ease;
         }
         .navbar ul li a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: rgba(245, 245, 255, 0.3);
+            color: #ffffff;
+            transform: scale(1.1);
         }
         .work-card {
-            background-color: #000000;
+            background-color: #2D4060;
             border-radius: 20px;
-            border: 1px solid #333;
-            transition: transform 0.3s ease;
+            border: 1px solid #3A5A7B;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
             position: relative;
+            overflow: hidden;
         }
         .work-card:hover {
             transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(58, 90, 123, 0.5);
+        }
+        .work-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(245, 245, 255, 0.1) 0%, rgba(245, 245, 255, 0) 70%);
+            transition: transform 0.6s ease;
+            z-index: 0;
+        }
+        .work-card:hover::before {
+            transform: translate(50%, 50%);
+        }
+        .work-card {
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
         .video-container {
             border-radius: 20px;
@@ -58,18 +151,32 @@
         .btn {
             border-radius: 50px;
             padding: 10px 20px;
+            background-color: #3A5A7B;
+            color: #F5F5FF;
+            text-decoration: none;
+            transition: all 0.3s ease, transform 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+        .btn:hover {
+            background-color: #4A6B8C;
+            transform: rotate(5deg);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .btn i {
+            margin-right: 8px;
         }
         .video-dropdown {
             max-height: 0;
             overflow: hidden;
-            background-color: #000000;
+            background-color: #2D4060;
             border-radius: 20px;
             padding: 0 10px;
             margin-top: 10px;
             transition: max-height 0.5s ease, padding 0.3s ease;
         }
         .video-dropdown.active {
-            max-height: 2500px;
+            max-height: 3000px; /* Увеличено для надежности */
             padding: 10px;
         }
         .work-grid {
@@ -83,23 +190,20 @@
         .work-grid > div {
             width: 100%;
         }
-        .work-card:nth-child(1) {
-            margin-left: 8rem;
-            width: 80%;
-        }
-        .work-card:nth-child(2) {
-            margin-left: 8rem;
-            width: 80%;
-        }
-        .work-card:nth-child(3) {
-            margin-left: 8rem;
+        .work-card:nth-child(1),
+        .work-card:nth-child(2),
+        .work-card:nth-child(3),
+        .work-card:nth-child(4) {
+            margin-left: auto;
+            margin-right: auto;
             width: 80%;
         }
         #dots-bg {
-            position: fixed;
-            inset: 0;
-            width: 100vw;
-            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: 0;
             pointer-events: none;
             overflow: hidden;
@@ -108,63 +212,89 @@
             position: absolute;
             border-radius: 50%;
             pointer-events: none;
-            background-color: #000000;
-            animation: move 20s infinite linear;
+            background-color: #3A5A7B;
+            animation: move 20s infinite linear, pulse 2s infinite alternate;
+            --random-x: calc(2 * (0.5 - var(--random)));
+            --random-y: calc(2 * (0.5 - var(--random2)));
         }
         @keyframes move {
-            0% {
-                transform: translate(0, 0);
-            }
-            50% {
-                transform: translate(var(--dx), var(--dy));
-            }
-            100% {
-                transform: translate(0, 0);
-            }
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(calc(50px * var(--random-x)), calc(50px * var(--random-y))); }
+            100% { transform: translate(0, 0); }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.3; }
+            100% { transform: scale(1.2); opacity: 0.6; }
+        }
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #F5F5FF;
+            box-shadow: 0 0 5px #F5F5FF;
+            animation: fall 3s linear infinite;
+            z-index: -1;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
         }
         @keyframes sectionSlide {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .animate-section-slide {
             animation: sectionSlide 1s ease-out forwards;
         }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(10px); clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%); }
+            to { opacity: 1; transform: translateY(0); clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
         }
         .animate-content {
             animation: fadeIn 0.5s ease-out forwards;
         }
         #about {
-            background-image: url('icons/artistic-silhouette.png');
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 40px);
+            position: relative;
+        }
+        #works {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
+            position: relative;
+        }
+        #contact {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
+            position: relative;
+        }
+        #about .container, #contact .container{
+            padding: 20px;
+            width: 100%;
+            max-width: 100%;
+            height: 100%;
+            min-height: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            background: rgba(26, 42, 68, 0.7); /* Полупрозрачный слой для читаемости */
         }
         #about .animate-content:nth-child(1) { animation-delay: 0.3s; }
         #about .animate-content:nth-child(2) { animation-delay: 0.4s; }
         #about .animate-content:nth-child(3) { animation-delay: 0.5s; }
-        #about .animate-content:nth-child(4) { animation-delay: 0.6s; }
         .section-hidden {
             opacity: 0;
             transform: translateY(30px);
         }
         @keyframes sectionFadeSlide {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .section-visible {
             animation: sectionFadeSlide 1s ease-out forwards;
@@ -173,12 +303,12 @@
             animation: fadeIn 0.5s ease-out forwards;
         }
         #works .animate-content:nth-child(1) { animation-delay: 0.3s; }
-        /* Адаптивность */
         @media (max-width: 640px) {
             .navbar {
                 margin: 5px;
                 padding: 8px;
-                width: 100%;
+                width: 90%;
+                top: 5px;
             }
             .navbar h1 {
                 font-size: 1.25rem;
@@ -194,24 +324,22 @@
             }
             .work-card:nth-child(1),
             .work-card:nth-child(2),
-            .work-card:nth-child(3) {
-                margin-left: 0;
+            .work-card:nth-child(3),
+            .work-card:nth-child(4) {
+                margin-left: auto;
+                margin-right: auto;
                 width: 100%;
             }
-            #about {
-                background-size: 150%;
-                background-position: center;
-            }
-            #about .container {
+            #about .container, #works .container, #contact .container {
                 padding: 10px;
                 margin: 0;
                 width: 100%;
                 max-width: 100%;
             }
-            #about h2 {
+            #about h2, #works h2, #contact h2 {
                 font-size: 1.5rem;
             }
-            #about p {
+            #about p, #contact p {
                 font-size: 0.875rem;
                 max-width: 100%;
             }
@@ -221,9 +349,6 @@
             }
             #works, #contact {
                 padding: 10px 0;
-            }
-            #works h2, #contact h2 {
-                font-size: 1.5rem;
             }
             #works .work-card h3 {
                 font-size: 1rem;
@@ -236,13 +361,15 @@
                 padding: 6px 12px;
                 font-size: 0.875rem;
             }
+            .embed-container {
+                width: 95%;
+                margin: 10px auto;
+            }
         }
     </style>
 </head>
 <body class="font-sans">
-    <div id="dots-bg"></div>
-
-    <nav class="navbar fixed top-0 w-[calc(100%-20px)] bg-transparent text-white p-4 z-10">
+    <nav class="navbar text-white z-10">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-2xl font-bold uppercase">Портфолио</h1>
             <ul class="flex space-x-4">
@@ -253,87 +380,101 @@
         </div>
     </nav>
 
-    <section id="about" class="min-h-screen flex items-center justify-center text-black relative animate-section-slide">
-        <div class="container mx-auto px-4 text-center bg-white bg-opacity-80 py-8 rounded-lg">
-            <h2 class="text-4xl font-bold mb-4 uppercase text-gray-900 animate-content">Обо мне</h2>
-            <p class="text-lg max-w-2xl mx-auto mb-6 text-gray-800 animate-content">
-                Привет! Я Артём, профессиональный видеомонтажера с опытом работы в Adobe After Effects, Premiere Pro и Photoshop. Создаю динамичные и выразительные видео для рекламы, музыкальных клипов и корпоративных проектов.
-            </p>
-            <div class="flex justify-center space-x-6 animate-content">
-                <img src="icons/after-effects.svg" alt="Adobe After Effects" title="Adobe After Effects" class="w-12 h-12 hover:scale-110 transition-transform duration-300">
-                <img src="icons/premiere-pro.svg" alt="Adobe Premiere Pro" title="Adobe Premiere Pro" class="w-12 h-12 hover:scale-110 transition-transform duration-300">
-                <img src="icons/photoshop.svg" alt="Adobe Photoshop" title="Adobe Photoshop" class="w-12 h-12 hover:scale-110 transition-transform duration-300">
-            </div>
-        </div>
-    </section>
-
-    <section id="works" class="py-16 section-hidden">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-8 text-black uppercase animate-content">Мои работы</h2>
-            <div class="work-grid">
-                <div class="work-card p-6 text-center">
-                    <h3 class="text-xl font-semibold text-white uppercase">Рекламный ролик</h3>
-                    <div class="video-dropdown">
-                        <div class="grid grid-cols-1 gap-4">
-                            <div class="video-container">
-                                <video controls class="w-full">
-                                    <source src="videos/sport.mp4" type="video/mp4">
-                                    Ваш браузер не поддерживает видео.
-                                </video>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="work-card p-6 text-center">
-                    <h3 class="text-xl font-semibold text-white uppercase">Музыкальный клип</h3>
-                    <div class="video-dropdown">
-                        <div class="grid grid-cols-1 gap-4">
-                            <div class="video-container">
-                                <video controls class="w-full">
-                                    <source src="videos/papin olimp. mp4.mp4" type="video/mp4">
-                                    Ваш браузер не поддерживает видео.
-                                </video>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="work-card p-6 text-center">
-                    <h3 class="text-xl font-semibold text-white uppercase">Моушн-дизайн</h3>
-                    <div class="video-dropdown">
-                        <div class="grid grid-cols-1 gap-4">
-                            <div class="video-container">
-                                <video controls class="w-full">
-                                    <source src="videos/you12.mp4" type="video/mp4">
-                                    Ваш браузер не поддерживает видео.
-                                </video>
-                            </div>
-                            <div class="video-container">
-                                <video controls class="w-full">
-                                    <source src="videos/money sfx.mp4" type="video/mp4">
-                                    Ваш браузер не поддерживает видео.
-                                </video>
-                            </div>
-                            <div class="video-container">
-                                <video controls class="w-full">
-                                    <source src="videos/duolingo.mp4" type="video/mp4">
-                                    Ваш браузер не поддерживает видео.
-                                </video>
-                            </div>
-                        </div>
-                    </div>
+    <div class="embed-container">
+        <div id="dots-bg"></div>
+        <div class="embed-bg" style="background-image: url('jiwoo.jpg');"></div>
+        <section id="about" class="min-h-screen flex items-center justify-center text-white relative animate-section-slide">
+            <div class="container">
+                <h2 class="text-4xl font-bold mb-4 uppercase animate-content">Обо мне</h2>
+                <p class="text-lg max-w-2xl mx-auto mb-6 animate-content">
+                    Привет! Я Артём, профессиональный видеомонтажер с опытом работы в Adobe After Effects, Premiere Pro и Photoshop. Создаю динамичные и выразительные видео для рекламы, музыкальных клипов и корпоративных проектов.
+                </p>
+                <div class="flex justify-center space-x-6 animate-content">
+                    <img src="icons/after-effects.svg" alt="Adobe After Effects" title="Adobe After Effects" class="w-12 h-12 hover:scale-110 transition-transform duration-300">
+                    <img src="icons/premiere-pro.svg" alt="Adobe Premiere Pro" title="Adobe Premiere Pro" class="w-12 h-12 hover:scale-110 transition-transform duration-300">
+                    <img src="icons/photoshop.svg" alt="Adobe Photoshop" title="Adobe Photoshop" class="w-12 h-12 hover:scale-110 transition-transform duration-300">
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 
-    <section id="contact" class="py-16 text-black">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-3xl font-bold mb-8 uppercase">Связаться со мной</h2>
-            <p class="text-lg mb-4">Интересует сотрудничество? Напишите мне!</p>
-            <a href="mailto:artemzabarainf@gmail.com" class="btn bg-black text-white hover:bg-gray-800 transition mr-4">Отправить письмо</a>
-            <a href="https://t.me/delaxeer" target="_blank" class="btn bg-blue-500 text-white hover:bg-blue-600 transition">Telegram</a>
-        </div>
-    </section>
+    <div class="embed-container">
+        <div id="dots-bg"></div>
+        <div class="embed-bg" style="background-image: url('jiwoo2.jpg');"></div>
+        <section id="works" class="py-16 section-hidden">
+            <div class="container">
+                <h2 class="text-3xl font-bold text-center mb-8 text-white uppercase animate-content">Мои работы</h2>
+                <div class="work-grid">
+                    <div class="work-card p-6 text-center">
+                        <h3 class="text-xl font-semibold uppercase">Рекламный ролик</h3>
+                        <div class="video-dropdown">
+                            <div class="grid grid-cols-1 gap-4">
+                                <div class="video-container">
+                                    <video controls class="w-full">
+                                        <source src="videos/sport.mp4" type="video/mp4">
+                                        Ваш браузер не поддерживает видео.
+                                    </video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="work-card p-6 text-center">
+                        <h3 class="text-xl font-semibold uppercase">Монтаж мероприятий</h3>
+                        <div class="video-dropdown">
+                            <div class="grid grid-cols-1 gap-4">
+                                <div class="video-container">
+                                    <video controls class="w-full">
+                                        <source src="videos/svadba.mp4" type="video/mp4">
+                                        Ваш браузер не поддерживает видео.
+                                    </video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="work-card p-6 text-center">
+                        <h3 class="text-xl font-semibold uppercase">Моушн-дизайн</h3>
+                        <div class="video-dropdown">
+                            <div class="grid grid-cols-1 gap-4">
+                                <div class="video-container">
+                                    <video controls class="w-full">
+                                        <source src="videos/you12.mp4" type="video/mp4">
+                                        Ваш браузер не поддерживает видео.
+                                    </video>
+                                </div>
+                                <div class="video-container">
+                                    <video controls class="w-full">
+                                        <source src="videos/money sfx.mp4" type="video/mp4">
+                                        Ваш браузер не поддерживает видео.
+                                    </video>
+                                </div>
+                                <div class="video-container">
+                                    <video controls class="w-full">
+                                        <source src="videos/duolingo.mp4" type="video/mp4">
+                                        Ваш браузер не поддерживает видео.
+                                    </video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="embed-container">
+        <div id="dots-bg"></div>
+        <div class="embed-bg" style="background-image: url('jiwoo3.jpg');"></div>
+        <section id="contact" class="py-16">
+            <div class="container">
+                <h2 class="text-3xl font-bold mb-8 uppercase text-white">Связаться со мной</h2>
+                <p class="text-lg mb-4 text-white">Интересует сотрудничество? Напишите мне!</p>
+                <div class="flex justify-center space-x-4">
+                    <a href="mailto:martynovdima006@gmail.com" class="btn"><i class="fas fa-envelope mr-2"></i>Отправить письмо</a>
+                    <a href="https://t.me/sssIivaaa" target="_blank" class="btn bg-blue-500"><i class="fab fa-telegram-plane mr-2"></i>Telegram</a>
+                </div>
+            </div>
+        </section>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -349,52 +490,100 @@
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
+                    const target = document.querySelector(this.getAttribute('href'));
+                    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    setTimeout(() => {
+                        target.style.transform = 'scale(1.05)';
+                        setTimeout(() => target.style.transform = 'scale(1)', 300);
+                    }, 200);
                 });
             });
 
             const workCards = document.querySelectorAll('.work-card');
             workCards.forEach(card => {
                 const dropdown = card.querySelector('.video-dropdown');
-                card.addEventListener('click', (e) => {
-                    if (e.target.closest('video')) return;
-                    dropdown.classList.toggle('active');
-                });
+                if (dropdown) {
+                    card.addEventListener('click', (e) => {
+                        // Проверка, кликнули ли по видео или его элементам
+                        if (!e.target.closest('video') && !e.target.closest('source')) {
+                            dropdown.classList.toggle('active');
+                            card.style.transition = 'transform 0.5s ease';
+                            card.style.transform = dropdown.classList.contains('active') ? 'scale(1.1)' : 'scale(1)';
+                            setTimeout(() => card.style.transition = '', 500);
+                        }
+                    });
+                }
             });
 
-            const dotsBg = document.getElementById('dots-bg');
-            const colors = ['#000', '#222', '#444', '#666', '#888'];
+            const dotsBgs = document.querySelectorAll('#dots-bg');
+            const colors = ['#1A2A44', '#2D4060', '#3A5A7B'];
             const dotCount = 30;
 
-            for (let i = 0; i < dotCount; i++) {
-                const dot = document.createElement('div');
-                dot.className = 'dot';
-                const size = Math.random() * 30 + 10;
-                dot.style.width = `${size}px`;
-                dot.style.height = `${size}px`;
-                dot.style.left = `${Math.random() * 100}%`;
-                dot.style.top = `${Math.random() * 100}%`;
-                dot.style.background = colors[Math.floor(Math.random() * colors.length)];
-                dot.style.opacity = 0.15 + Math.random() * 0.25;
-                dot.style.setProperty('--dx', `${Math.random() * 100 - 50}vw`);
-                dot.style.setProperty('--dy', `${Math.random() * 100 - 50}vh`);
-                dot.style.animationDuration = `${15 + Math.random() * 20}s`;
-                dot.style.animationDelay = `${Math.random() * 5}s`;
-                dotsBg.appendChild(dot);
+            dotsBgs.forEach(dotsBg => {
+                for (let i = 0; i < dotCount; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'dot';
+                    const size = Math.random() * 30 + 10;
+                    dot.style.width = `${size}px`;
+                    dot.style.height = `${size}px`;
+                    dot.style.left = `${Math.random() * 100}%`;
+                    dot.style.top = `${Math.random() * 100}%`;
+                    dot.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    dot.style.opacity = 0.15 + Math.random() * 0.25;
+                    dot.style.setProperty('--random', Math.random());
+                    dot.style.setProperty('--random2', Math.random());
+                    dot.style.animationDuration = `${15 + Math.random() * 20}s`;
+                    dot.style.animationDelay = `${Math.random() * 5}s`;
+                    dotsBg.appendChild(dot);
+                }
+            });
+
+            const starsContainer = document.createElement('div');
+            starsContainer.style.position = 'fixed';
+            starsContainer.style.top = 0;
+            starsContainer.style.left = 0;
+            starsContainer.style.width = '100%';
+            starsContainer.style.height = '100%';
+            starsContainer.style.pointerEvents = 'none';
+            starsContainer.style.zIndex = -1;
+            document.body.appendChild(starsContainer);
+
+            function createStar() {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.animationDuration = `${1 + Math.random() * 2}s`;
+                star.style.width = `${1 + Math.random() * 2}px`;
+                star.style.height = star.style.width;
+                starsContainer.appendChild(star);
+                setTimeout(() => star.remove(), 3000);
             }
+
+            setInterval(createStar, 500);
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('section-visible');
+                        entry.target.style.transition = 'transform 0.5s ease';
+                        entry.target.style.transform = 'translateY(-10px)';
+                        setTimeout(() => entry.target.style.transform = 'translateY(0)', 500);
                     }
                 });
             }, { threshold: 0.1 });
 
-            const worksSection = document.querySelector('#works');
-            observer.observe(worksSection);
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => observer.observe(section));
+
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('mouseover', () => {
+                    btn.style.transform = 'rotate(5deg)';
+                });
+                btn.addEventListener('mouseout', () => {
+                    btn.style.transform = 'rotate(0deg)';
+                });
+            });
         });
     </script>
 </body>
